@@ -1,3 +1,7 @@
+2009-08-06  Sridhar Ratnakumar <srid at nearfar.org>
+
+	* setup.py: Write a setup.py and release 0.1
+
 2008-05-05  Mariano Draghi <mariano at chaghi dot com dot ar> 
 
 	* rtm.py: Issue a warnging if simplejson is not available.

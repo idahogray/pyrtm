@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='pyrtm',
-      version='0.1',
+      version='0.2dev',
       description='Remember The Milk API',
       author='Sridhar Ratnakumar',
       author_email='srid@nearfar.org',

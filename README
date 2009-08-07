@@ -1,10 +1,11 @@
-======================================================================
+========================================
 Python library for Remember The Milk API
-======================================================================
+========================================
 
-Copyright (c) 2008 by Sridhar Ratnakumar <http://nearfar.org/>
+Copyright (c) 2009 by Sridhar Ratnakumar <srid@nearfar.org>
 
 Contributors:
+
  - Mariano Draghi (cHagHi) <mariano at chaghi dot com dot ar>
 
-See app.py for examples
+Home page: http://bitbucket.org/srid/pyrtm/

@@ -21,7 +21,11 @@ try:
     import simplejson
     _use_simplejson = True
 except ImportError:
-    pass
+    try:
+        from django.utils import simplejson
+        _use_simplejson = True
+    except ImportError:
+        pass
 
 if not _use_simplejson:
     warnings.warn("simplejson module is not available, "

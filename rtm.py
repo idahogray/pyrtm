@@ -12,7 +12,7 @@ import new
 import warnings
 import urllib
 import logging
-from md5 import md5
+from hashlib import md5
 
 warnings.simplefilter('default', ImportWarning)
 

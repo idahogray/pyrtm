@@ -23,10 +23,14 @@ def test(apiKey, secret, token=None):
 if __name__ == '__main__':
     import sys
     try:
-        prog, api_key, secret = sys.argv
+        api_key, secret = sys.argv[1:3]
     except ValueError:
         print >>sys.stderr, 'Usage: ./app.py APIKEY SECRET'
     else:
-        test(api_key, secret)
+        try:
+            token = sys.argv[3]
+        except IndexError:
+            token = None
+        test(api_key, secret, token)
     
     

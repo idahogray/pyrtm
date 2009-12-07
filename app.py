@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # simple app
 
 from rtm import createRTM
@@ -18,3 +19,14 @@ def createApp(rtm):
 def test(apiKey, secret, token=None):
     rtm = createRTM(apiKey, secret, token)
     createApp(rtm)
+
+if __name__ == '__main__':
+    import sys
+    try:
+        prog, api_key, secret = sys.argv
+    except ValueError:
+        print >>sys.stderr, 'Usage: ./app.py APIKEY SECRET'
+    else:
+        test(api_key, secret)
+    
+    

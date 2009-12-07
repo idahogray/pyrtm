@@ -8,7 +8,6 @@ __all__ = (
         )
 
 
-import new
 import warnings
 import urllib
 import logging

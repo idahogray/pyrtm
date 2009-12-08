@@ -25,7 +25,7 @@ except ImportError:
         _use_simplejson = True
     except ImportError:
         pass
-
+    
 if not _use_simplejson:
     warnings.warn("simplejson module is not available, "
              "falling back to the internal JSON parser. "
@@ -184,7 +184,7 @@ def openURL(url, queryArgs=None):
     return urllib.urlopen(url)
 
 class dottedDict(object):
-    "Make dictionary items accessible via the object-dot notation."
+    """Make dictionary items accessible via the object-dot notation."""
 
     def __init__(self, name, dictionary):
         self._name = name
@@ -197,6 +197,8 @@ class dottedDict(object):
                     value = [dottedDict('%s_%d' % (key, i), item)
                              for i, item in indexed(value)]
                 setattr(self, key, value)
+        else:
+            raise ValueError, 'not a dict: %s' % dictionary
 
     def __repr__(self):
         children = [c for c in dir(self) if not c.startswith('_')]

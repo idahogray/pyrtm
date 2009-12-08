@@ -7,11 +7,20 @@ from Tkinter import *
 
 def createApp(rtm):
     rspTasks = rtm.tasks.getList(filter='dueWithin:"1 week of today"')
-    tasks = [t.name for t in rspTasks.tasks.list.taskseries]
+    tasks = []
+    for l in rspTasks.tasks.list:
+        # XXX: taskseries *may* be a list 
+        if isinstance(l.taskseries, (list, tuple)):
+            for t in l.taskseries:
+                tasks.append(t.name)
+        else:
+            tasks.append(l.taskseries.name)
+    print tasks
 
     root = Tk()
+    root.title('My tasks due within a week')
     root.wm_attributes('-topmost', 1)
-    root.wm_attributes('-alpha', 0.5)
+    root.wm_attributes('-alpha', 0.9)
     l = Label(text='\n'.join(tasks))
     l.pack()
     l.mainloop()
@@ -25,7 +34,7 @@ if __name__ == '__main__':
     try:
         api_key, secret = sys.argv[1:3]
     except ValueError:
-        print >>sys.stderr, 'Usage: ./app.py APIKEY SECRET'
+        print >>sys.stderr, 'Usage: ./app.py APIKEY SECRET [TOKEN]'
     else:
         try:
             token = sys.argv[3]

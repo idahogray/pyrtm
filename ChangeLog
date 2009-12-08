@@ -1,3 +1,9 @@
+2009-12-08  Sridhar Ratnakumar <srid at nearfar.org>
+
+	* app.py: Made it a command-line app accepting key/secret/token as args
+	* rtm.py: Fixed incorrect number of arguments to "lists" (#3)
+	* rtm.py: Try to import django.utils.simplejson before falling back
+
 2009-08-06  Sridhar Ratnakumar <srid at nearfar.org>
 
 	* setup.py: Write a setup.py and release 0.1

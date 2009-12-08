@@ -223,11 +223,11 @@ def indexed(seq):
 API = {
    'auth': {
        'checkToken':
-           [('auth_token'), ()],
+           [('auth_token',), ()],
        'getFrob':
            [(), ()],
        'getToken':
-           [('frob'), ()]
+           [('frob',), ()]
        },
     'contacts': {
         'add':
@@ -251,7 +251,7 @@ API = {
         },
     'lists': {
         'add':
-            [('timeline', 'name',), ('filter')],
+            [('timeline', 'name',), ('filter',)],
         'archive':
             [('timeline', 'list_id'), ()],
         'delete':
@@ -263,7 +263,7 @@ API = {
         'setName':
             [('timeline', 'list_id', 'name'), ()],
         'unarchive':
-            [('timeline'), ('list_id')]
+            [('timeline',), ('list_id',)]
         },
     'locations': {
         'getList':

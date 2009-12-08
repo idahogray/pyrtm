@@ -251,7 +251,7 @@ API = {
         },
     'lists': {
         'add':
-            [('timeline', 'name'), ('filter'), ()],
+            [('timeline', 'name',), ('filter')],
         'archive':
             [('timeline', 'list_id'), ()],
         'delete':
@@ -259,11 +259,11 @@ API = {
         'getList':
             [(), ()],
         'setDefaultList':
-            [('timeline'), ('list_id'), ()],
+            [('timeline'), ('list_id')],
         'setName':
             [('timeline', 'list_id', 'name'), ()],
         'unarchive':
-            [('timeline'), ('list_id'), ()],
+            [('timeline'), ('list_id')]
         },
     'locations': {
         'getList':

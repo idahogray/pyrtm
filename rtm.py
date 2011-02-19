@@ -11,13 +11,18 @@ __all__ = (
 import warnings
 import urllib
 import logging
+import sys
 from hashlib import md5
 
 warnings.simplefilter('default', ImportWarning)
 
 _use_simplejson = False
 try:
-    import simplejson
+    _ver = sys.version_info
+    if _ver[0] == 2 and _ver[1] >= 6:
+        import json as simplejson
+    else:
+        import simplejson
     _use_simplejson = True
 except ImportError:
     try:

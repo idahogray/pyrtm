@@ -8,14 +8,17 @@ from Tkinter import *
 def createApp(rtm):
     rspTasks = rtm.tasks.getList(filter='dueWithin:"1 week of today"')
     tasks = []
-    for l in rspTasks.tasks.list:
-        # XXX: taskseries *may* be a list 
-        if isinstance(l.taskseries, (list, tuple)):
-            for t in l.taskseries:
-                tasks.append(t.name)
-        else:
-            tasks.append(l.taskseries.name)
+    if hasattr(rspTasks.tasks.list, "__getitem__"):
+        for l in rspTasks.tasks.list:
+            # XXX: taskseries *may* be a list
+            if isinstance(l.taskseries, (list, tuple)):
+                for t in l.taskseries:
+                    tasks.append(t.name)
+            else:
+                tasks.append(l.taskseries.name)
     print tasks
+    if not tasks:
+        tasks.append('No tasks due within a week')
 
     root = Tk()
     root.title('My tasks due within a week')
@@ -41,5 +44,3 @@ if __name__ == '__main__':
         except IndexError:
             token = None
         test(api_key, secret, token)
-    
-    

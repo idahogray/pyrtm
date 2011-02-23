@@ -30,7 +30,7 @@ except ImportError:
         _use_simplejson = True
     except ImportError:
         pass
-    
+
 if not _use_simplejson:
     warnings.warn("simplejson module is not available, "
              "falling back to the internal JSON parser. "
@@ -60,7 +60,7 @@ class AuthStateMachine(object):
 
     def dataReceived(self, state, datum):
         if state not in self.states:
-            raise RTMError, "Invalid state <%s>" % state
+            raise RTMError('Invalid state <%s>' % state)
         self.data[state] = datum
 
     def get(self, state):
@@ -87,8 +87,8 @@ class RTM(object):
 
     def _sign(self, params):
         "Sign the parameters with MD5 hash"
-        pairs = ''.join(['%s%s' % (k,v) for k,v in sortedItems(params)])
-        return md5(self.secret+pairs).hexdigest()
+        pairs = ''.join(['%s%s' % (k, v) for k, v in sortedItems(params)])
+        return md5(self.secret + pairs).hexdigest()
 
     def get(self, **params):
         "Get the XML response for the passed `params`."
@@ -107,8 +107,8 @@ class RTM(object):
         rsp = data.rsp
 
         if rsp.stat == 'fail':
-            raise RTMAPIError, 'API call failed - %s (%s)' % (
-                rsp.err.msg, rsp.err.code)
+            raise RTMAPIError('API call failed - %s (%s)' % (
+                rsp.err.msg, rsp.err.code))
         else:
             return rsp
 
@@ -125,8 +125,8 @@ class RTM(object):
 
         params = {
             'api_key': self.apiKey,
-            'perms'  : 'delete',
-            'frob'   : frob
+            'perms': 'delete',
+            'frob': frob
             }
         params['api_sig'] = self._sign(params)
         return AUTH_SERVICE_URL + '?' + urllib.urlencode(params)
@@ -155,13 +155,14 @@ class RTMAPICategory:
             return lambda **params: self.callMethod(
                 aname, rargs, oargs, **params)
         else:
-            raise AttributeError, 'No such attribute: %s' % attr
+            raise AttributeError('No such attribute: %s' % attr)
 
     def callMethod(self, aname, rargs, oargs, **params):
         # Sanity checks
         for requiredArg in rargs:
             if requiredArg not in params:
-                raise TypeError, 'Required parameter (%s) missing' % requiredArg
+                raise TypeError('Required parameter (%s) missing' % (
+                                requiredArg))
 
         for param in params:
             if param not in rargs + oargs:
@@ -170,7 +171,6 @@ class RTMAPICategory:
         return self.rtm.get(method=aname,
                             auth_token=self.rtm.authInfo.get('token'),
                             **params)
-
 
 
 # Utility functions
@@ -203,7 +203,7 @@ class dottedDict(object):
                              for i, item in indexed(value)]
                 setattr(self, key, value)
         else:
-            raise ValueError, 'not a dict: %s' % dictionary
+            raise ValueError('not a dict: %s' % dictionary)
 
     def __repr__(self):
         children = [c for c in dir(self) if not c.startswith('_')]
@@ -303,7 +303,8 @@ API = {
             [('timeline', 'list_id', 'taskseries_id', 'task_id', 'direction'),
              ()],
         'moveTo':
-            [('timeline', 'from_list_id', 'to_list_id', 'taskseries_id', 'task_id'),
+            [('timeline', 'from_list_id', 'to_list_id', 'taskseries_id',
+              'task_id'),
              ()],
         'postpone':
             [('timeline', 'list_id', 'taskseries_id', 'task_id'),
@@ -341,7 +342,8 @@ API = {
         },
     'tasksNotes': {
         'add':
-            [('timeline', 'list_id', 'taskseries_id', 'task_id', 'note_title', 'note_text'), ()],
+            [('timeline', 'list_id', 'taskseries_id', 'task_id',
+              'note_title', 'note_text'), ()],
         'delete':
             [('timeline', 'note_id'), ()],
         'edit':
@@ -397,10 +399,10 @@ def test(apiKey, secret, token=None):
 
 def set_log_level(level):
     '''Sets the log level of the logger used by the module.
-    
+
     >>> import rtm
     >>> import logging
     >>> rtm.set_log_level(logging.INFO)
     '''
-    
+
     LOG.setLevel(level)

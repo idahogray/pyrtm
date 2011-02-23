@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+import sys
 from setuptools import setup, find_packages
 from os.path import join as pathjoin
 
 VERSION = '0.3dev'
 
 LONG_DESCRIPTION = "".join([
-    open(pathjoin("src","README")).read()])
+    open(pathjoin("src", "README")).read()])
 
 CLASSIFIERS = [
     "Environment :: Web Environment",
@@ -16,6 +17,11 @@ CLASSIFIERS = [
     'Programming Language :: Python',
     'Topic :: Internet',
 ]
+
+INSTALL_REQUIRES = []
+_ver = sys.version_info
+if _ver[0] == 2 and _ver[1] < 6:
+    INSTALL_REQUIRES.append("simplejson")
 
 setup(
     name='pyrtm',
@@ -29,7 +35,9 @@ setup(
     license='MIT License',
     packages=find_packages("src"),
     package_dir={'': 'src'},
-    package_data = {'': ['buildout.cfg']},
+    package_data={'': ['buildout.cfg']},
+    include_package_data=True,
+    install_requires=INSTALL_REQUIRES,
     extras_require=dict(
         test=[
             "Nose",
@@ -38,10 +46,9 @@ setup(
         ],
     ),
     test_suite='nose.collector',
-    tests_require=['Nose','minimock','pep8'],
+    tests_require=['Nose', 'minimock', 'pep8'],
     entry_points="""
        [console_scripts]
        rtm_appsample = rtm.samples.app:main
     """,
 )
-

@@ -16,27 +16,10 @@ from hashlib import md5
 
 warnings.simplefilter('default', ImportWarning)
 
-_use_simplejson = False
 try:
-    _ver = sys.version_info
-    if _ver[0] == 2 and _ver[1] >= 6:
-        import json as simplejson
-    else:
-        import simplejson
-    _use_simplejson = True
+    import json
 except ImportError:
-    try:
-        from django.utils import simplejson
-        _use_simplejson = True
-    except ImportError:
-        pass
-
-if not _use_simplejson:
-    warnings.warn("simplejson module is not available, "
-             "falling back to the internal JSON parser. "
-             "Please consider installing the simplejson module from "
-             "http://pypi.python.org/pypi/simplejson.", ImportWarning,
-             stacklevel=2)
+    import simplejson as json
 
 logging.basicConfig()
 LOG = logging.getLogger(__name__)
@@ -96,15 +79,12 @@ class RTM(object):
         params['format'] = 'json'
         params['api_sig'] = self._sign(params)
 
-        json = openURL(SERVICE_URL, params).read()
+        data = openURL(SERVICE_URL, params).read()
 
-        LOG.debug("JSON response: \n%s" % json)
+        LOG.debug("JSON response: \n%s" % data)
 
-        if _use_simplejson:
-            data = dottedDict('ROOT', simplejson.loads(json))
-        else:
-            data = dottedJSON(json)
-        rsp = data.rsp
+        d = dottedDict('ROOT', json.loads(data))
+        rsp = d.rsp
 
         if rsp.stat == 'fail':
             raise RTMAPIError('API call failed - %s (%s)' % (
@@ -210,13 +190,6 @@ class dottedDict(object):
         return 'dotted <%s> : %s' % (
             self._name,
             ', '.join(children))
-
-
-def safeEval(string):
-    return eval(string, {}, {})
-
-def dottedJSON(json):
-    return dottedDict('ROOT', safeEval(json))
 
 def indexed(seq):
     index = 0

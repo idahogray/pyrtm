@@ -50,7 +50,7 @@ class AuthStateMachine(object):
         if state in self.data:
             return self.data[state]
         else:
-            raise AuthStateMachine.NoData, 'No data for <%s>' % state
+            raise AuthStateMachine.NoData('No data for <%s>' % state)
 
 
 class RTM(object):
@@ -156,13 +156,22 @@ class RTMAPICategory:
 # Utility functions
 
 def sortedItems(dictionary):
-    "Return a list of (key, value) sorted based on keys"
+    """ Return a list of (key, value) sorted based on keys
+    >>> list(sortedItems({'a': 1, 1: 55, 'key': 7}))
+    [(1, 55), ('a', 1), ('key', 7)]
+    """
     keys = dictionary.keys()
     keys.sort()
     for key in keys:
         yield key, dictionary[key]
 
 def openURL(url, queryArgs=None):
+    """
+    >>> q = {'query': 'test'}
+    >>> r = openURL('http://www.rememberthemilk.com/', q)
+    >>> r.geturl()
+    'http://www.rememberthemilk.com/?query=test'
+    """
     if queryArgs:
         url = url + '?' + urllib.urlencode(queryArgs)
     LOG.debug("URL> %s", url)
@@ -192,6 +201,10 @@ class dottedDict(object):
             ', '.join(children))
 
 def indexed(seq):
+    """
+    >>> list(indexed(['a', 'b', 'c']))
+    [(0, 'a'), (1, 'b'), (2, 'c')]
+    """
     index = 0
     for item in seq:
         yield index, item
@@ -360,6 +373,7 @@ def createRTM(apiKey, secret, token=None):
     return rtm
 
 def test(apiKey, secret, token=None):
+    # FIXME: this function doesn't work
     rtm = createRTM(apiKey, secret, token)
 
     rspTasks = rtm.tasks.getList(filter='dueWithin:"1 week of today"')

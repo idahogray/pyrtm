@@ -12,7 +12,6 @@ __all__ = (
 import warnings
 import urllib
 import logging
-import sys
 from hashlib import md5
 
 # rtm constant
@@ -149,9 +148,12 @@ class RTMAPICategory:
             if param not in rargs + oargs:
                 warnings.warn('Invalid parameter (%s)' % param)
 
-        return self.rtm.get(method=aname,
-                            auth_token=self.rtm.authInfo.get('token'),
-                            **params)
+        token = self.rtm.authInfo.get('token')
+        if params.get('auth_token'):
+            # auth.checkToken api needs auth_token parameter
+            token = params.pop('auth_token')
+
+        return self.rtm.get(method=aname, auth_token=token, **params)
 
 
 # Utility functions

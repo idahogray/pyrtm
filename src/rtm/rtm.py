@@ -4,6 +4,7 @@
 __author__ = 'Sridhar Ratnakumar <http://nearfar.org/>'
 __all__ = (
     'API',
+    'API_RESPONSE',
     'createRTM',
     'set_log_level',
 )

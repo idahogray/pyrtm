@@ -1,6 +1,7 @@
 .pyc
 .swp
 tmp
+apikey.txt
 
 # buildout paths
 .installed.cfg

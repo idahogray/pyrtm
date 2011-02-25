@@ -160,73 +160,81 @@ _LIST_COMMON = {
 }
 
 _TASK_COMMON = {
-    'list': ['id', {
-        'taskseries': ['created', 'id', 'modified', 'name',
-                       'source', {
-            'tags': [],
-            'participants': [],
-            'notes': [],
-            'task': ['added', 'completed', 'deleted', 'due',
-                     'estimate', 'has_due_time', 'id', 'postponed',
-                     'priority'],
+    'lists': {
+        'list': ['id', {
+            'taskseries': ['created', 'id', 'modified', 'name',
+                           'source', {
+                'tags': [],
+                'participants': [],
+                'notes': [],
+                'task': ['added', 'completed', 'deleted', 'due',
+                         'estimate', 'has_due_time', 'id', 'postponed',
+                         'priority'],
+                },
+            ],
             },
         ],
-        },
-    ],
+    },
 }
 
 _TASK_TAGS = {
-    'list': ['id', {
-        'taskseries': ['created', 'id', 'modified', 'name',
-                       'source', {
-            'tags': {
-                'tag': [],
-            },
-            'participants': [],
-            'notes': [],
-            'task': ['added', 'completed', 'deleted', 'due',
-                     'estimate', 'has_due_time', 'id', 'postponed',
-                     'priority'],
+    'lists': {
+        'list': ['id', {
+            'taskseries': ['created', 'id', 'modified', 'name',
+                           'source', {
+                'tags': {
+                    'tag': [],
+                },
+                'participants': [],
+                'notes': [],
+                'task': ['added', 'completed', 'deleted', 'due',
+                         'estimate', 'has_due_time', 'id', 'postponed',
+                         'priority'],
+                },
+            ],
             },
         ],
-        },
-    ],
+    },
 }
 
 _TASK_RRULE = {
-    'list': ['id', {
-        'taskseries': ['created', 'id', 'modified', 'name',
-                       'source', {
-            'rrule': ['every'],
-            'tags': [],
-            'participants': [],
-            'notes': [],
-            'task': ['added', 'completed', 'deleted', 'due',
-                     'estimate', 'has_due_time', 'id', 'postponed',
-                     'priority'],
+    'lists': {
+        'list': ['id', {
+            'taskseries': ['created', 'id', 'modified', 'name',
+                           'source', {
+                'rrule': ['every'],
+                'tags': [],
+                'participants': [],
+                'notes': [],
+                'task': ['added', 'completed', 'deleted', 'due',
+                         'estimate', 'has_due_time', 'id', 'postponed',
+                         'priority'],
+                },
+            ],
             },
         ],
-        },
-    ],
+    },
 }
 
 _TASK_TAGS_RRULE = {
-    'list': ['id', {
-        'taskseries': ['created', 'id', 'modified', 'name',
-                       'source', {
-            'rrule': ['every'],
-            'tags': {
-                'tag': [],
-            },
-            'participants': [],
-            'notes': [],
-            'task': ['added', 'completed', 'deleted', 'due',
-                     'estimate', 'has_due_time', 'id', 'postponed',
-                     'priority'],
+    'lists': {
+        'list': ['id', {
+            'taskseries': ['created', 'id', 'modified', 'name',
+                           'source', {
+                'rrule': ['every'],
+                'tags': {
+                    'tag': [],
+                },
+                'participants': [],
+                'notes': [],
+                'task': ['added', 'completed', 'deleted', 'due',
+                         'estimate', 'has_due_time', 'id', 'postponed',
+                         'priority'],
+                },
+            ],
             },
         ],
-        },
-    ],
+    },
 }
 
 API_RESPONSE = {

@@ -54,24 +54,19 @@ class TestRTM(object):
     def assert_stat_ok(self, rsp):
         assert_equal(u"ok", rsp.stat)
 
-    def assert_attr(self, methods, rsp):
-        for m in methods:
-            if type(m) is dict:
-                for key in m:
-                    assert_true(hasattr(rsp, key))
-            else:
-                assert_true(hasattr(rsp, m))
-
-    def assert_methods(self, func, **params):
+    def assert_methods(self, func, elem=None, **params):
         """high-level assertion for stat/attr of api methods"""
         api, method = func.func_name.replace('test_', '').split('_')
-        attr = "%s.%s" % (api, method)
-        rsp = attrgetter(attr)(self.rtm)(**params)
-        self.assert_stat_ok(rsp)
+        elem = elem or api
+        api_method = "%s.%s" % (api, method)
+        rsp = attrgetter(api_method)(self.rtm)(**params)
+        self.assert_stat_ok(rsp)  # response is ok
+
         rsp_attr = getattr(rsp, api)
         if not isinstance(rsp_attr, RTM.dottedDict):
             raise SkipTest(self.message['no_item'] % (api, method))
-        self.assert_attr(RTM.API_RESPONSE[api][method][api], rsp_attr)
+        attr = RTM.API_RESPONSE[api][method][elem].keys()[0]
+        assert_true(hasattr(rsp_attr, attr))  # has item
 
     def test_auth_checkToken(self):
         params = {'auth_token': self.token}
@@ -92,9 +87,8 @@ class TestRTM(object):
     def test_settings_getList(self):
         self.assert_methods(self.test_settings_getList)
 
-    # FIXME: this test is failed
-    #def test_tasks_getList(self):
-    #    self.assert_methods(self.test_tasks_getList)
+    def test_tasks_getList(self):
+        self.assert_methods(self.test_tasks_getList, 'lists')
 
     def test_timezones_getList(self):
         self.assert_methods(self.test_timezones_getList)

@@ -225,18 +225,6 @@ def createRTM(apiKey, secret, token=None):
 
     return rtm
 
-def test(apiKey, secret, token=None):
-    # FIXME: this function doesn't work
-    rtm = createRTM(apiKey, secret, token)
-
-    rspTasks = rtm.tasks.getList(filter='dueWithin:"1 week of today"')
-    print [t.name for t in rspTasks.tasks.list.taskseries]
-    print rspTasks.tasks.list.id
-
-    rspLists = rtm.lists.getList()
-    # print rspLists.lists.list
-    print [(x.name, x.id) for x in rspLists.lists.list]
-
 def set_log_level(level):
     '''Sets the log level of the logger used by the module.
 

@@ -8,7 +8,8 @@ from Tkinter import *
 def createApp(rtm):
     rspTasks = rtm.tasks.getList(filter='dueWithin:"1 week of today"')
     tasks = []
-    if hasattr(rspTasks.tasks.list, "__getitem__"):
+    if hasattr(rspTasks.tasks, "list") and \
+       hasattr(rspTasks.tasks.list, "__getitem__"):
         for l in rspTasks.tasks.list:
             # XXX: taskseries *may* be a list
             if isinstance(l.taskseries, (list, tuple)):

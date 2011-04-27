@@ -19,8 +19,7 @@ CLASSIFIERS = [
 ]
 
 INSTALL_REQUIRES = []
-_ver = sys.version_info
-if _ver[0] == 2 and _ver[1] < 6:
+if sys.version_info < (2, 6):
     INSTALL_REQUIRES.append("simplejson")
 
 setup(

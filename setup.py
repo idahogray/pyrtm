@@ -3,13 +3,13 @@ import sys
 from setuptools import setup, find_packages
 from os.path import join as pathjoin
 
-VERSION = '0.3dev'
+VERSION = '0.3'
 
-LONG_DESCRIPTION = "".join([
-    open(pathjoin("src", "README")).read()])
+LONG_DESCRIPTION = ''.join([
+    open(pathjoin('src', 'README')).read()])
 
 CLASSIFIERS = [
-    "Environment :: Web Environment",
+    'Environment :: Web Environment',
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
@@ -20,7 +20,7 @@ CLASSIFIERS = [
 
 INSTALL_REQUIRES = []
 if sys.version_info < (2, 6):
-    INSTALL_REQUIRES.append("simplejson")
+    INSTALL_REQUIRES.append('simplejson')
 
 setup(
     name='pyrtm',
@@ -32,20 +32,19 @@ setup(
     author_email='srid@nearfar.org',
     url='http://bitbucket.org/srid/pyrtm/',
     license='MIT License',
-    packages=find_packages("src"),
+    packages=find_packages('src'),
     package_dir={'': 'src'},
     package_data={'': ['buildout.cfg']},
     include_package_data=True,
     install_requires=INSTALL_REQUIRES,
     extras_require=dict(
         test=[
-            "Nose",
-            "minimock",
-            "pep8",
+            'Nose',
+            'pep8',
         ],
     ),
     test_suite='nose.collector',
-    tests_require=['Nose', 'minimock', 'pep8'],
+    tests_require=['Nose', 'pep8'],
     entry_points="""
        [console_scripts]
        rtm_appsample = rtm.samples.app:main

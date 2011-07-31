@@ -29,7 +29,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     classifiers=CLASSIFIERS,
     author='Sridhar Ratnakumar',
-    author_email='srid@nearfar.org',
+    author_email='pyrtm@srid.name',
     url='http://bitbucket.org/srid/pyrtm/',
     license='MIT License',
     packages=find_packages('src'),

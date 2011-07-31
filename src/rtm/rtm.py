@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Python library for Remember The Milk API
 
-__author__ = 'Sridhar Ratnakumar <http://nearfar.org/>'
+__author__ = 'Sridhar Ratnakumar <http://purl.org/NET/srid/>'
 __all__ = (
     'API',
     'API_RESPONSE',

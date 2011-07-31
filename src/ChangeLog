@@ -3,14 +3,14 @@
         * buildout and tests environment
         * some minor bug fixes
 
-2009-12-08  Sridhar Ratnakumar <srid at nearfar.org>
+2009-12-08  Sridhar Ratnakumar <pyrtm at srid.name>
 
 	* app.py: Fix for unreliable type of 'taskseries' (#5)
 	* rtm.py: Fixed incorrect number of arguments to "lists" (#3)
 	* rtm.py: Try to import django.utils.simplejson before falling back
 	* app.py: Made it a command-line app accepting key/secret/token as args
 
-2009-08-06  Sridhar Ratnakumar <srid at nearfar.org>
+2009-08-06  Sridhar Ratnakumar <pyrtm at srid.name>
 
 	* setup.py: Write a setup.py and release 0.1
 

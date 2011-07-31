@@ -33,15 +33,18 @@ def test(apiKey, secret, token=None):
     rtm = createRTM(apiKey, secret, token)
     createApp(rtm)
 
-if __name__ == '__main__':
+def main():
     import sys
     try:
         api_key, secret = sys.argv[1:3]
     except ValueError:
-        print >>sys.stderr, 'Usage: ./app.py APIKEY SECRET [TOKEN]'
+        print >>sys.stderr, 'Usage: rtm_appsample APIKEY SECRET [TOKEN]'
     else:
         try:
             token = sys.argv[3]
         except IndexError:
             token = None
         test(api_key, secret, token)
+
+if __name__ == '__main__':
+    main()

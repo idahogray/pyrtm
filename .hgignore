@@ -1,12 +1,14 @@
-syntax: glob
-
-*.egg-info
-*.pyc
-
+.pyc
+.swp
 tmp
+apikey.txt
 
 # buildout paths
-bin
-develop-eggs
-parts
 .installed.cfg
+bin
+_build
+develop-eggs
+dist
+eggs
+parts
+src/.*.egg-info

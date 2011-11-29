@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
-from rtm import *
-from samples import *
+from .rtm import *
+from .samples import *

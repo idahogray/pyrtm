@@ -11,12 +11,12 @@ __all__ = (
 
 
 import warnings
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import logging
 from hashlib import md5
 
 # rtm constant
-from consts import *
+from .consts import *
 
 try:
     import json
@@ -62,7 +62,7 @@ class RTM(object):
         self.authInfo = AuthStateMachine(['frob', 'token'])
 
         # this enables one to do 'rtm.tasks.getList()', for example
-        for prefix, methods in API.items():
+        for prefix, methods in list(API.items()):
             setattr(self, prefix,
                     RTMAPICategory(self, prefix, methods))
 
@@ -110,7 +110,7 @@ class RTM(object):
             'frob': frob
             }
         params['api_sig'] = self._sign(params)
-        return AUTH_SERVICE_URL + '?' + urllib.urlencode(params)
+        return AUTH_SERVICE_URL + '?' + urllib.parse.urlencode(params)
 
     def getToken(self):
         frob = self.authInfo.get('frob')
@@ -164,7 +164,7 @@ def sortedItems(dictionary):
     >>> list(sortedItems({'a': 1, 1: 55, 'key': 7}))
     [(1, 55), ('a', 1), ('key', 7)]
     """
-    keys = dictionary.keys()
+    keys = list(dictionary.keys())
     keys.sort()
     for key in keys:
         yield key, dictionary[key]
@@ -177,9 +177,9 @@ def openURL(url, queryArgs=None):
     'http://www.rememberthemilk.com/?query=test'
     """
     if queryArgs:
-        url = url + '?' + urllib.urlencode(queryArgs)
+        url = url + '?' + urllib.parse.urlencode(queryArgs)
     LOG.debug("URL> %s", url)
-    return urllib.urlopen(url)
+    return urllib.request.urlopen(url)
 
 class dottedDict(object):
     """Make dictionary items accessible via the object-dot notation."""
@@ -188,7 +188,7 @@ class dottedDict(object):
         self._name = name
 
         if type(dictionary) is dict:
-            for key, value in dictionary.items():
+            for key, value in list(dictionary.items()):
                 if type(value) is dict:
                     value = dottedDict(key, value)
                 elif type(value) in (list, tuple) and key != 'tag':
@@ -218,10 +218,10 @@ def createRTM(apiKey, secret, token=None):
     rtm = RTM(apiKey, secret, token)
 
     if token is None:
-        print 'No token found'
-        print 'Give me access here:', rtm.getAuthURL()
-        raw_input('Press enter once you gave access')
-        print 'Note down this token for future use:', rtm.getToken()
+        print('No token found')
+        print('Give me access here:', rtm.getAuthURL())
+        input('Press enter once you gave access')
+        print('Note down this token for future use:', rtm.getToken())
 
     return rtm
 

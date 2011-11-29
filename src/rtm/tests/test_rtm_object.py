@@ -2,7 +2,7 @@
 
 import os
 import sys
-from ConfigParser import RawConfigParser
+from configparser import RawConfigParser
 from operator import attrgetter
 from os.path import dirname, join as pathjoin, realpath
 from nose.plugins.skip import SkipTest
@@ -48,15 +48,15 @@ class TestRTM(object):
             self.secret = c.get('rtm', 'secret')
             self.token = c.get('rtm', 'token')
         except Exception as err:
-            print >> sys.stderr, err
+            print(err, file=sys.stderr)
             raise SkipTest(self.message['cannot_read'])
 
     def assert_stat_ok(self, rsp):
-        assert_equal(u"ok", rsp.stat)
+        assert_equal("ok", rsp.stat)
 
     def assert_response(self, func, elem=None, **params):
         """assert the stat/attr(only top) of response from api"""
-        api, method = func.func_name.replace('test_', '').split('_')
+        api, method = func.__name__.replace('test_', '').split('_')
         elem = elem or api
         api_method = "%s.%s" % (api, method)
         rsp = attrgetter(api_method)(self.rtm)(**params)
@@ -65,7 +65,7 @@ class TestRTM(object):
         rsp_attr = getattr(rsp, api)
         if not isinstance(rsp_attr, RTM.dottedDict):
             raise SkipTest(self.message['no_item'] % (api, method))
-        attr = RTM.API_RESPONSE[api][method][elem].keys()[0]
+        attr = list(RTM.API_RESPONSE[api][method][elem].keys())[0]
         assert_true(hasattr(rsp_attr, attr))  # has item
 
     def test_auth_checkToken(self):

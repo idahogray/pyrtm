@@ -12,3 +12,7 @@ dist
 eggs
 parts
 src/.*.egg-info
+
+# virtualenv paths
+include
+lib

@@ -74,7 +74,7 @@ class RTM(object):
     def _sign(self, params):
         "Sign the parameters with MD5 hash"
         pairs = ''.join(['%s%s' % (k, v) for k, v in sortedItems(params)])
-        return md5(self.secret + pairs).hexdigest()
+        return md5((self.secret + pairs).encode('utf-8')).hexdigest()
 
     def get(self, **params):
         "Get the XML response for the passed `params`."
@@ -86,7 +86,7 @@ class RTM(object):
 
         LOG.debug("JSON response: \n%s" % data)
 
-        d = dottedDict('ROOT', json.loads(data))
+        d = dottedDict('ROOT', json.loads(data.decode('utf-8')))
         rsp = d.rsp
 
         if rsp.stat == 'fail':

@@ -10,10 +10,7 @@ __all__ = (
 )
 
 
-import warnings
-import urllib.request
-import urllib.parse
-import urllib.error
+import json
 import logging
 from hashlib import md5
 
@@ -21,11 +18,10 @@ from hashlib import md5
 from .consts import *
 
 try:
-    import json
+    from urllib.request import urlopen
+    from urllib.parse import urlencode
 except ImportError:
-    import simplejson as json
-
-warnings.simplefilter('default', ImportWarning)
+    from urllib import urlencode, urlopen
 
 logging.basicConfig()
 LOG = logging.getLogger(__name__)
@@ -64,9 +60,8 @@ class RTM(object):
         self.authInfo = AuthStateMachine(['frob', 'token'])
 
         # this enables one to do 'rtm.tasks.getList()', for example
-        for prefix, methods in list(API.items()):
-            setattr(self, prefix,
-                    RTMAPICategory(self, prefix, methods))
+        for prefix, methods in API.items():
+            setattr(self, prefix, RTMAPICategory(self, prefix, methods))
 
         if token:
             self.authInfo.dataReceived('token', token)
@@ -112,7 +107,7 @@ class RTM(object):
             'frob': frob
             }
         params['api_sig'] = self._sign(params)
-        return AUTH_SERVICE_URL + '?' + urllib.parse.urlencode(params)
+        return AUTH_SERVICE_URL + '?' + urlencode(params)
 
     def getToken(self):
         frob = self.authInfo.get('frob')
@@ -179,9 +174,9 @@ def openURL(url, queryArgs=None):
     'http://www.rememberthemilk.com/?query=test'
     """
     if queryArgs:
-        url = url + '?' + urllib.parse.urlencode(queryArgs)
+        url = url + '?' + urlencode(queryArgs)
     LOG.debug("URL> %s", url)
-    return urllib.request.urlopen(url)
+    return urlopen(url)
 
 class dottedDict(object):
     """Make dictionary items accessible via the object-dot notation."""
@@ -190,7 +185,7 @@ class dottedDict(object):
         self._name = name
 
         if type(dictionary) is dict:
-            for key, value in list(dictionary.items()):
+            for key, value in dictionary.items():
                 if type(value) is dict:
                     value = dottedDict(key, value)
                 elif type(value) in (list, tuple) and key != 'tag':

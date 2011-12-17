@@ -2,11 +2,15 @@
 
 import os
 import sys
-from configparser import RawConfigParser
 from operator import attrgetter
 from os.path import dirname, join as pathjoin, realpath
 from nose.plugins.skip import SkipTest
 from nose.tools import *
+
+try:
+    from ConfigParser import RawConfigParser
+except ImportError:
+    from configparser import RawConfigParser
 
 import rtm.rtm as RTM
 
@@ -48,7 +52,7 @@ class TestRTM(object):
             self.secret = c.get('rtm', 'secret')
             self.token = c.get('rtm', 'token')
         except Exception as err:
-            print(err, file=sys.stderr)
+            sys.stderr.write(err + "\n")
             raise SkipTest(self.message['cannot_read'])
 
     def assert_stat_ok(self, rsp):
@@ -56,7 +60,11 @@ class TestRTM(object):
 
     def assert_response(self, func, elem=None, **params):
         """assert the stat/attr(only top) of response from api"""
-        api, method = func.__name__.replace('test_', '').split('_')
+        if hasattr(func, "func_name"):
+            func_name = func.func_name
+        else:
+            func_name = func.__name__
+        api, method = func_name.replace('test_', '').split('_')
         elem = elem or api
         api_method = "%s.%s" % (api, method)
         rsp = attrgetter(api_method)(self.rtm)(**params)

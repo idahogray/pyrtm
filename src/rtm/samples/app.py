@@ -3,7 +3,10 @@
 
 from rtm import createRTM
 
-from tkinter import *
+try:
+    from Tkinter import *
+except ImportError:
+    from tkinter import *
 
 def createApp(rtm):
     rspTasks = rtm.tasks.getList(filter='dueWithin:"1 week of today"')
@@ -38,7 +41,7 @@ def main():
     try:
         api_key, secret = sys.argv[1:3]
     except ValueError:
-        print('Usage: rtm_appsample APIKEY SECRET [TOKEN]', file=sys.stderr)
+        sys.stderr.write('Usage: rtm_appsample APIKEY SECRET [TOKEN]\n')
     else:
         try:
             token = sys.argv[3]

@@ -15,12 +15,17 @@ CLASSIFIERS = [
     'License :: OSI Approved :: MIT License',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
     'Topic :: Internet',
 ]
 
-INSTALL_REQUIRES = []
 if sys.version_info < (2, 6):
-    INSTALL_REQUIRES.append('simplejson')
+    unsupported = '''
+    pyrtm needs python >= 2.6 or 3.x
+    use pyrtm-0.3 if you want to use older version
+    '''
+    print(unsupported)
+    sys.exit(0)
 
 setup(
     name='pyrtm',
@@ -36,7 +41,6 @@ setup(
     package_dir={'': 'src'},
     package_data={'': ['buildout.cfg']},
     include_package_data=True,
-    install_requires=INSTALL_REQUIRES,
     extras_require=dict(
         test=[
             'Nose',

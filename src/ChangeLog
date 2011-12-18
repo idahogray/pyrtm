@@ -1,3 +1,8 @@
+2011-12-18  Tetsuya Morimoto <tetsuya dot morimoto at gmail dot com>
+
+        * support Python 3 thanks to Arun Mahapatra (codito)
+        * obsolete less than Python 2.6
+
 2011-07-31  Tetsuya Morimoto <tetsuya dot morimoto at gmail dot com>
 
         * buildout and tests environment

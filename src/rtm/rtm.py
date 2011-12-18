@@ -162,7 +162,7 @@ def sortedItems(dictionary):
     [(1, 55), ('a', 1), ('key', 7)]
     """
     keys = list(dictionary.keys())
-    keys.sort()
+    keys.sort(key=str)
     for key in keys:
         yield key, dictionary[key]
 

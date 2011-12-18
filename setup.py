@@ -3,14 +3,14 @@ import sys
 from setuptools import setup, find_packages
 from os.path import join as pathjoin
 
-VERSION = '0.3'
+VERSION = '0.4'
 
 LONG_DESCRIPTION = ''.join([
     open(pathjoin('src', 'README')).read()])
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
-    'Development Status :: 3 - Alpha',
+    "Development Status :: 4 - Beta",
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
     'Operating System :: OS Independent',

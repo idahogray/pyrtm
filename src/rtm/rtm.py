@@ -217,7 +217,10 @@ def createRTM(apiKey, secret, token=None):
     if token is None:
         print('No token found')
         print('Give me access here:', rtm.getAuthURL())
-        input('Press enter once you gave access')
+        try:
+            input('Press enter once you gave access')
+        except SyntaxError:
+            pass
         print('Note down this token for future use:', rtm.getToken())
 
     return rtm

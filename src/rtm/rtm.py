@@ -17,11 +17,12 @@ from hashlib import md5
 # rtm constant
 from .consts import *
 
-try:
+try:  # Python 3
     from urllib.request import urlopen
     from urllib.parse import urlencode
-except ImportError:
+except ImportError:  # Python 2.x
     from urllib import urlencode, urlopen
+    input = raw_input
 
 logging.basicConfig()
 LOG = logging.getLogger(__name__)
@@ -216,12 +217,9 @@ def createRTM(apiKey, secret, token=None):
 
     if token is None:
         print('No token found')
-        print('Give me access here:', rtm.getAuthURL())
-        try:
-            input('Press enter once you gave access')
-        except SyntaxError:
-            pass
-        print('Note down this token for future use:', rtm.getToken())
+        print('Give me access here: {0}'.format(rtm.getAuthURL()))
+        input('Press enter once you gave access')
+        print('Note this token for future use: {0}'.format(rtm.getToken()))
 
     return rtm
 

@@ -1,3 +1,8 @@
+2012-03-26  Tetsuya Morimoto <tetsuya dot morimoto at gmail dot com>
+
+	* fix a bug thanks to Satoshi Miura (mursts)
+	* add tox test for multi Python version support
+
 2011-12-18  Tetsuya Morimoto <tetsuya dot morimoto at gmail dot com>
 
         * support Python 3 thanks to Arun Mahapatra (codito)

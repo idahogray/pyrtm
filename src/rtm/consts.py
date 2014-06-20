@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-SERVICE_URL = 'http://api.rememberthemilk.com/services/rest/'
-AUTH_SERVICE_URL = 'http://www.rememberthemilk.com/services/auth/'
+SERVICE_URL = 'https://api.rememberthemilk.com/services/rest/'
+AUTH_SERVICE_URL = 'https://www.rememberthemilk.com/services/auth/'
 
 # API spec
 API = {

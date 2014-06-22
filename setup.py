@@ -3,7 +3,7 @@ import sys
 from setuptools import setup, find_packages
 from os.path import join as pathjoin
 
-VERSION = '0.4.1'
+VERSION = '0.4.2'
 
 LONG_DESCRIPTION = ''.join([
     open(pathjoin('src', 'README')).read()])

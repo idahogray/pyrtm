@@ -29,13 +29,14 @@ class TestRTM(object):
 
     message = {
         'skip': '\n\n'
-            'Set your API key "%s" to run TestRTM for authentication\n'
-            '%s' % (KEY_TXT, KEY_TXT_FORMAT),
+                'Set your API key "%s" to run TestRTM for authentication\n'
+                '%s' % (KEY_TXT, KEY_TXT_FORMAT),
         'cannot_read': '\n\n'
-            'Cannot read "%s"\n'
-            '%s' % (KEY_TXT, KEY_TXT_FORMAT),
+                       'Cannot read "%s"\n'
+                       '%s' % (KEY_TXT, KEY_TXT_FORMAT),
         'no_item': '\n\n'
-            'rtm.%s.%s: Cannot get response item, maybe there is no item\n',
+                   'rtm.%s.%s: Cannot get response item, '
+                   'maybe there is no item\n',
     }
 
     def setup(self):

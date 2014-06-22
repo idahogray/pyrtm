@@ -106,7 +106,7 @@ class RTM(object):
             'api_key': self.apiKey,
             'perms': 'delete',
             'frob': frob
-            }
+        }
         params['api_sig'] = self._sign(params)
         return AUTH_SERVICE_URL + '?' + urlencode(params)
 

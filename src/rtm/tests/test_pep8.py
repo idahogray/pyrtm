@@ -1,39 +1,54 @@
 # -*- coding: utf-8 -*-
-
-from os.path import (abspath, dirname, isdir)
+import os
 import pep8
+import sys
 
-CURRENT_DIR = dirname(abspath(__file__))
-BASE_DIR = dirname(CURRENT_DIR)
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)
 
 
 def test_pep8():
     arglist = [
-        "--statistics",
-        "--filename=*.py",
-        "--show-source",
-        "--repeat",
-        "--exclude=SVGdraw.py",
-        "--ignore=E302,E701",
-        #"--show-pep8",
-        #"-qq",
-        #"-v",
-        BASE_DIR,
+        ['statistics', True],
+        ['show-source', True],
+        ['repeat', True],
+        ['exclude', ['consts.py']],
+        ['ignore', ['E302', 'E701']],
+        ['paths', [BASE_DIR]],
     ]
 
-    options, args = pep8.process_options(arglist)
-    runner = pep8.input_file
+    pep8style = pep8.StyleGuide(arglist, parse_argv=False, config_file=True)
+    options = pep8style.options
+    if options.doctest:
+        import doctest
+        fail_d, done_d = doctest.testmod(report=False, verbose=options.verbose)
+        fail_s, done_s = selftest(options)
+        count_failed = fail_s + fail_d
+        if not options.quiet:
+            count_passed = done_d + done_s - count_failed
+            print("%d passed and %d failed." % (count_passed, count_failed))
+            print("Test failed." if count_failed else "Test passed.")
+        if count_failed:
+            sys.exit(1)
 
-    for path in args:
-        if isdir(path):
-            pep8.input_dir(path, runner=runner)
-        elif not pep8.excluded(path):
-            options.counters["files"] += 1
-            runner(path)
+    if options.testsuite:
+        init_tests(pep8style)
 
-    pep8.print_statistics()
-    errors = pep8.get_count("E")
-    warnings = pep8.get_count("W")
-    message = "pep8: %d errors / %d warnings" % (errors, warnings)
-    print(message)
-    assert errors + warnings == 0, message
+    report = pep8style.check_files()
+    if options.statistics:
+        report.print_statistics()
+    if options.benchmark:
+        report.print_benchmark()
+    if options.testsuite and not options.quiet:
+        report.print_results()
+    if report.total_errors:
+        if options.count:
+            sys.stderr.write(str(report.total_errors) + '\n')
+        sys.exit(1)
+
+    # reporting errors (additional summary)
+    errors = report.get_count('E')
+    warnings = report.get_count('W')
+    message = 'pep8: %d errors / %d warnings' % (errors, warnings)
+    print message
+    assert report.total_errors == 0, message

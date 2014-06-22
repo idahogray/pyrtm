@@ -170,9 +170,9 @@ def sortedItems(dictionary):
 def openURL(url, queryArgs=None):
     """
     >>> q = {'query': 'test'}
-    >>> r = openURL('http://www.rememberthemilk.com/', q)
+    >>> r = openURL('https://www.rememberthemilk.com/', q)
     >>> r.geturl()
-    'http://www.rememberthemilk.com/?query=test'
+    'https://www.rememberthemilk.com/?query=test'
     """
     if queryArgs:
         url = url + '?' + urlencode(queryArgs)

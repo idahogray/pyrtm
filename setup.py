@@ -3,7 +3,7 @@ import sys
 from setuptools import setup, find_packages
 from os.path import join as pathjoin
 
-VERSION = '0.4.2'
+VERSION = '0.5.0'
 
 LONG_DESCRIPTION = ''.join([
     open(pathjoin('src', 'README')).read()])
@@ -40,6 +40,7 @@ setup(
     package_dir={'': 'src'},
     package_data={'': ['buildout.cfg']},
     include_package_data=True,
+    install_requires=['requests'],
     extras_require=dict(
         test=[
             'Nose',

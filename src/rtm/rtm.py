@@ -14,16 +14,17 @@ import json
 import logging
 from hashlib import md5
 
+import requests
+
 # rtm constant
 from .consts import *
 
 try:  # Python 3
-    from urllib.request import urlopen
     from urllib.parse import urlencode
 except ImportError:  # Python 2.x
-    from urllib import urlencode, urlopen
     input = raw_input
 
+print(__name__)
 logging.basicConfig()
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.INFO)
@@ -78,11 +79,11 @@ class RTM(object):
         params['format'] = 'json'
         params['api_sig'] = self._sign(params)
 
-        data = openURL(SERVICE_URL, params).read()
+        data = openURL(SERVICE_URL, params).json()
 
         LOG.debug("JSON response: \n%s" % data)
 
-        d = dottedDict('ROOT', json.loads(data.decode('utf-8')))
+        d = dottedDict('ROOT', data)
         rsp = d.rsp
 
         if rsp.stat == 'fail':
@@ -177,7 +178,7 @@ def openURL(url, queryArgs=None):
     if queryArgs:
         url = url + '?' + urlencode(queryArgs)
     LOG.debug("URL> %s", url)
-    return urlopen(url)
+    return requests.get(url)
 
 class dottedDict(object):
     """Make dictionary items accessible via the object-dot notation."""

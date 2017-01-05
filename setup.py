@@ -19,10 +19,9 @@ CLASSIFIERS = [
     'Topic :: Internet',
 ]
 
-if sys.version_info < (2, 6):
+if sys.version_info < (3, 4):
     unsupported = '''
-    pyrtm needs python >= 2.6 or 3.x
-    use pyrtm-0.3 if you want to use older version
+    pyrtm needs python >= 3.4
     '''
     print(unsupported)
     sys.exit(0)
